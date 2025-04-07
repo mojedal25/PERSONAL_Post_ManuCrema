@@ -1,0 +1,5 @@
+php artisan migrate --seed
+
+php artisan migrate:fresh --seed
+
+php artisan serve //Para correr laravel

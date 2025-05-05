@@ -29,6 +29,10 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'role' => $this->faker->randomElement(['admin', 'editor', 'user']),
+            'description' => $this->faker->paragraph(), //Descripcion aleatoria
+            'urlfacebook' => $this->faker->optional()->url(), //URL de facebook aleatoria
+            'urlinstagram' => $this->faker->optional()->url(), //URL de instagram aleatoria
+            'urlx' => $this->faker->optional()->url(), //URL de X aleatoria
             'remember_token' => Str::random(10),
             'created_at' => now(),
             'updated_at' => now(),

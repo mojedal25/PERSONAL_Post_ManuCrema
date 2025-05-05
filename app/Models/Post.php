@@ -14,6 +14,10 @@ class Post extends Model{
         'status', 'featured_image', 'published_at'
     ];
 
+    protected $casts = [
+        'published_at' => 'datetime',
+    ];
+
     public function user() {
         return $this->belongsTo(User::class);
     }

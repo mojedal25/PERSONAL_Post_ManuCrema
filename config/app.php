@@ -78,11 +78,11 @@ return [
     |
     */
 
-    'locale' => env('APP_LOCALE', 'en'),
+    'locale' => 'es',
 
-    'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),
+    'fallback_locale' => env('APP_FALLBACK_LOCALE', 'es'),
 
-    'faker_locale' => env('APP_FAKER_LOCALE', 'en_US'),
+    'faker_locale' => env('APP_FAKER_LOCALE', 'es_MX'),
 
     /*
     |--------------------------------------------------------------------------
@@ -121,6 +121,12 @@ return [
     'maintenance' => [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
+    ],
+
+    'social' => [
+        'facebook' => env('SOCIAL_FACEBOOK', '#'),
+        'instagram' => env('SOCIAL_INSTAGRAM', '#'),
+        'x' => env('SOCIAL_X', '#'),
     ],
 
 ];

@@ -10,23 +10,23 @@ use App\Models\Tag;
 class PostController extends Controller
 {
     public function index(){
-        //Obtener los últimos 4 posts ordenador por fecha de publicación
-        $latesPosts = Post::with(['user', 'categories'])->latest('published_at')->take(4)->get();
+        // Obtener los últimos 4 posts ordenados por fecha de publicación
+        $latestPosts = Post::with(['user', 'categories'])->latest('published_at')->take(4)->get();
 
-        //Obtener todos los posts paginados (9 por página)
+        // Obtener todos los posts paginados (9 por página)
         $allPosts = Post::with(['user', 'categories'])->latest('published_at')->paginate(9);
 
-        //Pasar los post a la vista
-        return view('welcome', compact('latesPosts', 'allPosts'));
+        // Pasar los posts a la vista
+        return view('welcome', compact('latestPosts', 'allPosts'));
     }
 
     public function show($id, $slug){
-        //Buscar el post por ID
-        $post = Post::with(['user','categories'])->findOrFail($id);
+        // Buscar el post por ID
+        $post = Post::with(['user', 'categories'])->findOrFail($id);
 
-        $latesPosts = Post::latest('published_at')->take(4)->get();
+        $latestPosts = Post::latest('published_at')->take(4)->get();
 
-        $categories = Category::with('post')->get();
+        $categories = Category::with('posts')->get();
 
         // Obtener el post anterior
         $previousPost = Post::where('id', '<', $post->id)
@@ -38,26 +38,58 @@ class PostController extends Controller
                         ->orderBy('id', 'asc')
                         ->first();
 
-        //Verificar que el slug en la URL coincida con el slug del post
-        if($post->slug !== $slug){
-            abort(404); //Mostrar error 404 si no coincide
+        // Verificar que el slug en la URL coincida con el slug del post
+        if ($post->slug !== $slug) {
+            abort(404); // Mostrar error 404 si no coincide
         }
 
-        //Retomar la vista con los datos del post
-        return view('blog.view', compact('post','latesPosts','categories','previousPost','nextPost'));
+        // Retornar la vista con los datos del post
+        return view('blog.view', compact('posts','latestPosts','categories','previousPost','nextPost'));
     }
 
-    public function blog(){
-        // Obtener los posts con paginacion (9 por página)
-        $allPosts = Post::with(['user', 'categories'])->latest('published_at')->paginate(6);
+    public function blog(Request $request, $slug = null){
+        $search = $request->input('search');
+        $category = null;
+        $tag = null;
 
+        // Construir la consulta base
+        $query = Post::with(['user', 'categories'])->latest('published_at');
+
+        // Filtrar por categoría si se proporciona un slug
+        if ($request->routeIs('posts.category') && $slug) {
+            $category = Category::where('slug', $slug)->firstOrFail();
+            $query->whereHas('categories', function ($q) use ($category) {
+                $q->where('categories.id', $category->id); // Evitar ambigüedad
+            });
+        }
+
+        // Filtrar por tag si se proporciona un slug
+        if ($request->routeIs('posts.tag') && $slug) {
+            $tag = Tag::where('slug', $slug)->firstOrFail();
+            $query->whereHas('tags', function ($q) use ($tag) {
+                $q->where('tags.id', $tag->id); // Evitar ambigüedad
+            });
+        }
+
+        // Aplicar búsqueda si hay un término de búsqueda
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'LIKE', '%' . $search . '%')
+                ->orWhere('content', 'LIKE', '%' . $search . '%');
+            });
+        }
+
+        // Obtener los posts con paginación
+        $allPosts = $query->paginate(6);
+
+        // Obtener categorías, tags y últimos posts
         $categories = Category::with('post')->get();
-
         $tags = Tag::all();
+        $latestPosts = Post::latest('published_at')->take(4)->get();
 
-        $latesPosts = Post::latest('published_at')->take(4)->get();
-
-        //Retornar la Vista con los datos
-        return view('blog.index', compact('allPosts','categories','latesPosts','tags'));
+        // Retornar la vista
+        return view('blog.index', compact('allPosts', 'categories', 'latestPosts', 'tags', 'category', 'tag', 'search'));
     }
+
+
 }

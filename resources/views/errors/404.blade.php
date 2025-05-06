@@ -45,6 +45,9 @@
     <!--footer-->
    @include('partials.footer')
 
+   <!--Search-form-->
+   @include('partials.buscar')
+
     @include('partials.js')
 
 </body>

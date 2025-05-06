@@ -19,7 +19,7 @@
         <div class="slider slider--two">
             <div class="swiper slider__top">
                 <div class="swiper-wrapper">
-                    @foreach ($latesPosts as $post)
+                    @foreach ($latestPosts as $post)
                         <!-- Slider Item -->
                         <div class="slider__item swiper-slide" style="background-image: url({{ asset('storage/' . $post->featured_image) }});">
                             <div class="container-fluid">
@@ -57,7 +57,7 @@
 
             <div thumbsSlider="" class="swiper slider__bottom container-fluid">
                 <div class="swiper-wrapper">
-                    @foreach ($latesPosts as $post)
+                    @foreach ($latestPosts as $post)
                         <!-- Thumbnail Item -->
                         <div class="swiper-slide">
                             <div class="post-slider">
@@ -138,26 +138,10 @@
     </main>
 
     <!--footer-->
-   @include('partials.footer')
+    @include('partials.footer')
 
     <!--Search-form-->
-    <div class="search__box">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-6 m-auto col-md-8 col-sm-11">
-                    <div class="search__content ">
-                        <button type="button" class="search__box-btn-close">
-                            <i class="bi bi-x-lg"></i>
-                        </button>
-                        <form class="search__form" action="search-page.html">
-                            <input type="search" class="search__form-input" value="" placeholder="What are you looking for?">
-                            <button type="submit" class="search__form-btn-search">search</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('partials.buscar')
 
     @include('partials.js')
 

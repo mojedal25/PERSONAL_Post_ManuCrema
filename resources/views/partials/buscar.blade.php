@@ -9,13 +9,13 @@
                     </button>
                     <form method="GET" class="search__form" action="{{ route('blog.index') }}">
                         <input type="search" name="search" value="{{ request('search') }}" class="search__form-input"
-                        placeholder="Buscar en
+                        placeholder="Buscar
                             @if(request()->routeIs('posts.category'))
                                 {{ $category->name ?? 'el blog' }}
                             @elseif(request()->routeIs('posts.tag'))
                                 {{ $tag->name ?? 'el blog' }}
                             @else
-                                el blog
+
                             @endif">
                         <button type="submit" class="search__form-btn-search">Buscar</button>
                     </form>

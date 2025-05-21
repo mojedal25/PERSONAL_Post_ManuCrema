@@ -26,7 +26,7 @@ class PostController extends Controller
 
         $latestPosts = Post::latest('published_at')->take(4)->get();
 
-        $categories = Category::with('posts')->get();
+        $categories = Category::with('post')->get();
 
         // Obtener el post anterior
         $previousPost = Post::where('id', '<', $post->id)
@@ -44,7 +44,7 @@ class PostController extends Controller
         }
 
         // Retornar la vista con los datos del post
-        return view('blog.view', compact('posts','latestPosts','categories','previousPost','nextPost'));
+        return view('blog.view', compact('post','latestPosts','categories','previousPost','nextPost'));
     }
 
     public function blog(Request $request, $slug = null){

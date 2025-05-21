@@ -31,7 +31,7 @@
                                 <div class="post-single__content">
                                     <!-- Categorías -->
                                     @foreach ($post->categories as $category)
-                                        <a href="#" class="category">{{ $category->name }}</a>
+                                        <a href="{{ route('posts.category', $category->slug) }}" class="category">{{ $category->name }}</a>
                                     @endforeach
 
                                     <!-- Título del Post -->
@@ -170,7 +170,7 @@
                             <div class="widget">
                                 <h5 class="widget__title">Latest Posts</h5>
                                 <ul class="widget__latest-posts">
-                                    @foreach ($latesPosts as $index => $post)
+                                    @foreach ($latestPosts as $index => $post)
                                         <!-- Post {{ $index + 1 }} -->
                                         <li class="widget__latest-posts__item">
                                             <div class="widget__latest-posts-image">
@@ -201,7 +201,7 @@
                                 <ul class="widget__categories">
                                     @foreach ($categories as $category)
                                         <li class="widget__categories-item">
-                                            <a href="#" class="category widget__categories-link">{{ $category->name }}</a>
+                                            <a href="{{ route('posts.category', $category->slug) }}" class="category widget__categories-link">{{ $category->name }}</a>
                                             <span class="ml-auto widget__categories-number">{{ $category->post->count() }} Posts</span>
                                         </li>
                                     @endforeach

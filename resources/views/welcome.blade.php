@@ -28,7 +28,7 @@
                                         <div class="slider__item-content">
                                             <div class="categories">
                                                 @foreach ($post->categories as $category)
-                                                    <a href="#" class="category">{{ $category->name }}</a>
+                                                    <a href="{{ route('posts.category', $category->slug) }}" class="category">{{ $category->name }}</a>
                                                 @endforeach
                                             </div>
                                             <h1 class="slider__title">
@@ -97,7 +97,7 @@
                                     <!-- Categorías -->
                                     <div class="categories">
                                         @foreach ($post->categories as $category)
-                                            <a href="#" class="category">{{ $category->name }}</a>
+                                            <a href="{{ route('posts.category', $category->slug) }}" class="category">{{ $category->name }}</a>
                                         @endforeach
                                     </div>
                                     <h5 class="post-card__title">

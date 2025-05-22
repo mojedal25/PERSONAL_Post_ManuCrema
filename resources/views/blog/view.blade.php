@@ -63,7 +63,7 @@
                                     <ul class="list-inline widget__tags">
                                         @foreach ($post->tags as $tag)
                                             <li class="widget__tags-item">
-                                                <a href="#" class="widget__tags-link">{{ $tag->name }}</a>
+                                                <a href="{{ route('posts.tag', $tag->slug) }}" class="widget__tags-link">{{ $tag->name }}</a>
                                             </li>
                                         @endforeach
                                     </ul>
@@ -214,7 +214,7 @@
                                 <ul class="list-inline widget__tags">
                                     @foreach ($post->tags as $tag)
                                         <li class="widget__tags-item">
-                                            <a href="#" class="widget__tags-link">{{ $tag->name }}</a>
+                                            <a href="{{ route('posts.tag', $tag->slug) }}" class="widget__tags-link">{{ $tag->name }}</a>
                                         </li>
                                     @endforeach
                                 </ul>

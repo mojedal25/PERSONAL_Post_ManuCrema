@@ -1,22 +1,10 @@
-<!doctype html>
-<html lang="es">
+@extends('layouts.base')
 
-<head>
-  @include('partials.head')
-</head>
+@section('title', 'ManuCrema | Blog')
 
-<body>
-    <!--loading -->
-        @include('partials.loading')
-    <!--/-->
+@section('content')
 
-    <!-- Header -->
-    @include('partials.header')
-    <!--/-->
-
-    <main class="main">
         <!--slider-two-->
-
         <section class="page404">
             <div class="container-fluid">
                 <div class="row">
@@ -40,17 +28,6 @@
 
         <!--newslettre-->
         @include('partials.newslettre')
-    </main>
 
-    <!--footer-->
-   @include('partials.footer')
-
-   <!--Search-form-->
-   @include('partials.buscar')
-
-    @include('partials.js')
-
-</body>
-
-</html>
+@endsection
 

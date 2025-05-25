@@ -1,20 +1,8 @@
-<!doctype html>
-<html lang="es">
+@extends('layouts.base')
 
-<head>
-  @include('partials.head')
-</head>
+@section('title', 'ManuCrema | Blog')
 
-<body>
-    <!--loading -->
-        @include('partials.loading')
-    <!--/-->
-
-    <!-- Header -->
-    @include('partials.header')
-    <!--/-->
-
-    <main class="main">
+@section('content')
 
         <!--about-us-->
         <section class="m-top mb-10">
@@ -60,16 +48,5 @@
 
         <!--newslettre-->
         @include('partials.newslettre')
-    </main>
 
-    <!--footer-->
-   @include('partials.footer')
-
-    <!--Search-form-->
-    @include('partials.buscar')
-
-    @include('partials.js')
-
-</body>
-
-</html>
+@endsection
